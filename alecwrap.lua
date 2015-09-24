@@ -67,15 +67,19 @@ function M:getMinimalActionSet()
   ale.getMinimalActionSet(self.obj, actionlist)
   return actionlist
 end
-function M:getScreenRGB(asstring)
+function M:getScreenRGB()
   if not self.screengrb then
-    self.screenrgb = ffi.new("unsigned char[?]",
-      self:getScreenWidth() * self:getScreenHeight() * 3)
+    self.screenrgb = ffi.new("unsigned char[?]", self:getScreenWidth() * self:getScreenHeight() * 3)
   end
   ale.getScreenRGB(self.obj, self.screenrgb)
-  return (asstring and ffi.string(self.screenrgb, 
-      self:getScreenWidth() * self:getScreenHeight() * 3)
-    or self.screenrgb)
+  return self.screenrgb
+end
+function M:getScreen()
+  if not self.screen then
+    self.screen = ffi.new("unsigned char[?]", self:getScreenWidth() * self:getScreenHeight())
+  end
+  ale.getScreen(self.obj, self.screen)
+  return self.screen
 end
 
 return M

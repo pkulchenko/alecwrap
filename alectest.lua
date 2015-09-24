@@ -8,10 +8,8 @@ local width, height = ale:getScreenWidth(), ale:getScreenHeight()
 local wx = require 'wx'
 local image = wx.wxImage(width, height, true)
 local function init()
-  local frame = wx.wxFrame(wx.NULL, wx.wxID_ANY,
-    "ALE",
-    wx.wxDefaultPosition,
-    wx.wxSize(width, height),
+  local frame = wx.wxFrame(wx.NULL, wx.wxID_ANY, "ALE",
+    wx.wxDefaultPosition, wx.wxSize(width, height),
     wx.wxFRAME_TOOL_WINDOW + wx.wxSTAY_ON_TOP
   )
   frame:SetClientSize(width, height)
@@ -29,8 +27,10 @@ local function init()
   return frame
 end
 local frame = init()
+local ffi = require 'ffi'
 local function display(screen)
-  image:SetData(screen)
+  -- SetData expects a Lua string instead of cdata type, so need to convert
+  image:SetData(type(screen) == 'cdata' and ffi.string(screen, width * height * 3) or screen)
   frame:Update()
   frame:Refresh()
   wx.wxSafeYield()
@@ -44,7 +44,7 @@ while true do
   local action = actionset[num-1]
   local reward = ale:act(action)
   local gameover = ale:isGameOver()
-  display(ale:getScreenRGB(true))
+  display(ale:getScreenRGB())
 
   if gameover then
     io.write(("frame: %d (%d); action: %d; reward: %d; lives: %d; %s\n")
