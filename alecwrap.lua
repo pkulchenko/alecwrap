@@ -47,6 +47,7 @@ end
 function M:getScreenWidth() return ale.getScreenWidth(self.obj) end
 function M:getScreenHeight() return ale.getScreenHeight(self.obj) end
 function M:getFrameNumber() return ale.getFrameNumber(self.obj) end
+function M:getEpisodeFrameNumber() return ale.getEpisodeFrameNumber(self.obj) end
 function M:isGameOver() return ale.game_over(self.obj) end
 function M:getLives() return ale.lives(self.obj) end
 function M:saveState() return ale.saveState(self.obj) end

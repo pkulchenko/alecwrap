@@ -43,13 +43,12 @@ while true do
   local num = math.random(actions) -- get random action from the legal set
   local action = actionset[num-1]
   local reward = ale:act(action)
-  local framenum = ale:getFrameNumber()
   local gameover = ale:isGameOver()
   display(ale:getScreenRGB(true))
 
   if gameover then
-    io.write(("frame: %d; action: %d; reward: %d; lives: %d; %s\n")
-      :format(framenum, action, reward, ale:getLives(), gameover and "done" or ""))
+    io.write(("frame: %d (%d); action: %d; reward: %d; lives: %d; %s\n")
+      :format(ale:getEpisodeFrameNumber(), ale:getFrameNumber(), action, reward, ale:getLives(), gameover and "done" or ""))
     ale:resetGame()
     -- break --<-- uncomment to abort the script after one game
   end
