@@ -29,7 +29,7 @@ make
 
 ## Running example script using ZeroBrane Studio
 
-* Download and install [ZeroBrane Studio](http://studio.zerobrane.com/)
+* Download and install [ZeroBrane Studio](http://studio.zerobrane.com/).
 * Launch ZeroBrane Studio and load the example by using the following command:
 
 ```

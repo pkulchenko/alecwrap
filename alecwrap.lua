@@ -59,6 +59,12 @@ function M:getLegalActionSet()
   ale.getLegalActionSet(self.obj, actionlist)
   return actionlist
 end
+function M:getMinimalActionSize() return ale.getMinimalActionSize(self.obj) end
+function M:getMinimalActionSet()
+  local actionlist = ffi.new("int[?]", self:getMinimalActionSize())
+  ale.getMinimalActionSet(self.obj, actionlist)
+  return actionlist
+end
 function M:getScreenRGB(asstring)
   if not self.screengrb then
     self.screenrgb = ffi.new("unsigned char[?]",
