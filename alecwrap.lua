@@ -54,6 +54,7 @@ function M:saveState() return ale.saveState(self.obj) end
 function M:loadState() return ale.loadState(self.obj) end
 function M:resetGame() return ale.reset_game(self.obj) end
 function M:act(action) return ale.act(self.obj, action) end
+function M:saveScreenPNG(name) return ale.saveScreenPNG(self.obj, name) end
 function M:getLegalActionSize() return ale.getLegalActionSize(self.obj) end
 function M:getLegalActionSet()
   local actionlist = ffi.new("int[?]", self:getLegalActionSize())

@@ -23,7 +23,7 @@ local function init()
     dc:delete()
   end
 
-  frame:Connect(wx.wxEVT_ERASE_BACKGROUND, function () end) -- do nothing
+  frame:Connect(wx.wxEVT_ERASE_BACKGROUND, function () end)
   frame:Connect(wx.wxEVT_PAINT, OnPaint)
   frame:Show(true)
   return frame
@@ -49,6 +49,11 @@ while true do
   if gameover then
     io.write(("frame: %d (%d); action: %d; reward: %d; lives: %d; %s\n")
       :format(ale:getEpisodeFrameNumber(), ale:getFrameNumber(), action, reward, ale:getLives(), gameover and "done" or ""))
+
+    local fname = ("screen%d.png"):format(ale:getFrameNumber())
+    -- image:SaveFile(fname) --<-- uncomment to save png file
+    -- ale:saveScreenPNG(fname) --<-- uncomment to save 2x width png file
+
     ale:resetGame()
     -- break --<-- uncomment to abort the script after one game
   end
