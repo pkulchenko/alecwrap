@@ -55,17 +55,24 @@ function M:loadState() return ale.loadState(self.obj) end
 function M:resetGame() return ale.reset_game(self.obj) end
 function M:act(action) return ale.act(self.obj, action) end
 function M:saveScreenPNG(name) return ale.saveScreenPNG(self.obj, name) end
+local function array2table(array, size)
+  local list = {}
+  for i = 0, size-1 do list[i+1] = array[i] end
+  return list
+end
 function M:getLegalActionSize() return ale.getLegalActionSize(self.obj) end
 function M:getLegalActionSet()
-  local actionlist = ffi.new("int[?]", self:getLegalActionSize())
+  local size = self:getLegalActionSize()
+  local actionlist = ffi.new("int[?]", size)
   ale.getLegalActionSet(self.obj, actionlist)
-  return actionlist
+  return array2table(actionlist, size)
 end
 function M:getMinimalActionSize() return ale.getMinimalActionSize(self.obj) end
 function M:getMinimalActionSet()
-  local actionlist = ffi.new("int[?]", self:getMinimalActionSize())
+  local size = self:getMinimalActionSize()
+  local actionlist = ffi.new("int[?]", size)
   ale.getMinimalActionSet(self.obj, actionlist)
-  return actionlist
+  return array2table(actionlist, size)
 end
 function M:getScreenRGB()
   if not self.screengrb then

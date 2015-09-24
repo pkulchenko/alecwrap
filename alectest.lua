@@ -37,11 +37,10 @@ local function display(screen)
   -- wx.wxMilliSleep(10) --<-- uncomment to run slower
 end
 
-local actions = ale:getMinimalActionSize()
 local actionset = ale:getMinimalActionSet()
 while true do
-  local num = math.random(actions) -- get random action from the legal set
-  local action = actionset[num-1]
+  -- get random action from the legal set
+  local action = actionset[math.random(#actionset)]
   local reward = ale:act(action)
   local gameover = ale:isGameOver()
   display(ale:getScreenRGB())
