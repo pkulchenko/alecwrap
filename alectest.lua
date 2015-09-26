@@ -25,6 +25,7 @@ local function showdiff(reward, screenrgb, ale)
     ffi.copy(screenold, screennew, width * height)
 end
 
+local start = os.clock()
 alec.run("roms/breakout.bin", function(reward, actionset, ale)
     local screenrgb = ale:getScreenRGB()
 
@@ -33,8 +34,8 @@ alec.run("roms/breakout.bin", function(reward, actionset, ale)
     -- get random action from the legal set
     local action = actionset[math.random(#actionset)]
     if ale:isGameOver() then
-      io.write(("frame: %d (%d); action: %d; reward: %d; lives: %d\n")
-        :format(ale:getEpisodeFrameNumber(), ale:getFrameNumber(), action, reward, ale:getLives()))
+      io.write(("frame: %d (%d); action: %d; reward: %d; lives: %d; frames/sec: %d\n")
+        :format(ale:getEpisodeFrameNumber(), ale:getFrameNumber(), action, reward, ale:getLives(), ale:getFrameNumber()/(os.clock()-start)))
 
       local fname = ("screen%d.png"):format(ale:getFrameNumber())
       -- ale:saveScreenPNG(fname) --<-- uncomment to save 2x width png file
