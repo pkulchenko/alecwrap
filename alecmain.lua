@@ -28,9 +28,10 @@ return {
       frame:Show(true)
       return frame
     end
-    local frame = init()
+    local frame
     local ffi = require 'ffi'
     local function display(screen)
+      frame = frame or init()
       -- SetData expects a Lua string instead of cdata type, so need to convert
       image:SetData(type(screen) == 'cdata' and ffi.string(screen, width * height * 3) or screen)
       frame:Update()
