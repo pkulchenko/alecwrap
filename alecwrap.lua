@@ -37,7 +37,7 @@ ffi.cdef([[
   void saveScreenPNG(ALEInterface *ale,const char *filename);
 ]])
 
-local ale = ffi.load('libale_c')
+local ale = ffi.load(package.config:sub(1,1) == '\\' and 'libale_c' or './libale_c.so')
 local aleint = ale.ALE_new()
 local M = {obj = ffi.gc(aleint, function() ale.ALE_del(aleint) end)}
 function M.new(rom)
